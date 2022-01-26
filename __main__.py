@@ -1,4 +1,6 @@
+import re
 import os
+from xml.sax.handler import property_interning_dict
 import gdown
 import streamlit as st
 import numpy as np
@@ -81,14 +83,22 @@ def summarize_sentences(sentences: list, length: int,
     return summary
 
 
+def split_sentences(text: str) -> List[str]:
+    sep_pattern = re.compile(r"[!\.\?]+")
+    splits = sep_pattern.split(text)
+    stripped_splits = map(str.strip, splits)
+    sentences = filter(bool, stripped_splits)
+    return list(sentences)
+
+
 def summarize_text(text: str, length: int,
                    word_vectors: KeyedVectors, stop_words: set) -> str:
     spaced_text = " ".join(text.split())
-    sentence_sep = ". "
-    sentences = spaced_text.split(sentence_sep)
+    sentences = split_sentences(spaced_text)
     summary_sentences = summarize_sentences(
         sentences, length, word_vectors, stop_words)
-    summary = sentence_sep.join(summary_sentences)
+    pointed_sentences = [sentence + "." for sentence in summary_sentences]
+    summary = " ".join(pointed_sentences)
     return summary
 
 
@@ -98,10 +108,11 @@ def main():
     stop_words = fetch_stop_words()
 
     st.header("Turkish Text Summarizer")
-    st.write("This web app averages word vectors of every sentence using "
-              "a pre-trained model and then finds the most important "
-              "sentences by calculating the cosine similarity matrix of "
-              "sentence vectors.")
+    st.write("This web app splits input text into sentences at `!`, `.` and "
+             "`?` characters; averages word vectors of every sentence using "
+             "a pre-trained model and then finds the most important "
+             "sentences by calculating the cosine similarity matrix of "
+             "sentence vectors.")
     text = st.text_area(label="Long boring text")
     length = st.number_input(label="Summary sentence count", value=2)
 
