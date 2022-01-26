@@ -8,18 +8,6 @@ from sklearn.metrics.pairwise import cosine_similarity
 from typing import List
 
 
-def dot(X: List[float], Y: List[float]) -> float:
-    return sum(x * y for x, y in zip(X, Y))
-
-
-def norm(X: List[float]) -> float:
-    return dot(X, X) ** 0.5
-
-
-def cos(X: List[float], Y: List[float]) -> float:
-    return dot(X, Y) / (norm(X) * norm(Y))
-
-
 def drop_punctuation(s: str) -> str:
     return "".join(filter(str.isalpha, s))
 
