@@ -98,7 +98,7 @@ def main():
     stop_words = fetch_stop_words()
 
     st.header("Turkish Text Summarizer")
-    set.write("This web app averages word vectors of every sentence using "
+    st.write("This web app averages word vectors of every sentence using "
               "a pre-trained model and then finds the most important "
               "sentences by calculating the cosine similarity matrix of "
               "sentence vectors.")
