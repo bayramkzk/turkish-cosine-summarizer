@@ -97,7 +97,7 @@ def main():
     word_vectors = load_model()
     stop_words = fetch_stop_words()
 
-    st.header("Turkish Summary Generator")
+    st.header("Turkish Text Summarizer")
     text = st.text_area(label="Long boring text")
     length = st.number_input(label="Summary sentence count", value=2)
 
