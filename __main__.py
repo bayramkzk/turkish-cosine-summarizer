@@ -98,6 +98,10 @@ def main():
     stop_words = fetch_stop_words()
 
     st.header("Turkish Text Summarizer")
+    set.write("This web app averages word vectors of every sentence using "
+              "a pre-trained model and then finds the most important "
+              "sentences by calculating the cosine similarity matrix of "
+              "sentence vectors.")
     text = st.text_area(label="Long boring text")
     length = st.number_input(label="Summary sentence count", value=2)
 
@@ -105,7 +109,7 @@ def main():
         summary = summarize_text(text, length, word_vectors, stop_words)
     except Exception as e:
         summary = ""
-    
+
     st.text_area(label="Short summary text", value=summary, disabled=True)
 
 
