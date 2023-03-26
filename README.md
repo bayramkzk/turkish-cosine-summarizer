@@ -1,4 +1,4 @@
-# Turkish Summary Generator
+# Turkish Cosine Summarizer
 
 A Natural Language Processing Turkish summary generator website using word vectors and cosine similarity matrices.
 
